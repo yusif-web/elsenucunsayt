@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<title>Yoxlama</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: #39ff14;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    h1 {
+        font-size: 40px;
+        text-shadow: 0 0 10px #39ff14;
+    }
+
+    .bar {
+        width: 100%;
+        height: 20px;
+        border: 2px solid #00f;
+        margin-top: 30px;
+        overflow: hidden;
+    }
+
+    .bar-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #39ff14, #00f);
+        transition: width 0.2s;
+    }
+
+    input {
+        margin-top: 30px;
+        padding: 15px;
+        font-size: 24px;
+        width: 80%;
+        background: #000;
+        color: #39ff14;
+        border: 2px solid #00f;
+        text-align: center;
+        letter-spacing: 5px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 15px 40px;
+        font-size: 22px;
+        background: #000;
+        color: #39ff14;
+        border: 2px solid #39ff14;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #39ff14;
+        color: #000;
+    }
+
+    .blue {
+        color: #00f;
+        font-size: 50px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="app">
+    <h1>ELŞƏN OLDUĞUN YOXLANILIR</h1>
+    <div class="bar">
+        <div class="bar-fill" id="fill"></div>
+    </div>
+</div>
+
+<script>
+    let fill = document.getElementById("fill");
+    let width = 0;
+
+    let loading = setInterval(() => {
+        width += 2;
+        fill.style.width = width + "%";
+        if (width >= 100) {
+            clearInterval(loading);
+            showInput();
+        }
+    }, 50);
+
+    function showInput() {
+        document.getElementById("app").innerHTML = `
+            <h1>ELŞƏNSƏNSƏ<br>TELEFON KODUNU DAXİL ET</h1>
+            <input 
+                type="password" 
+                id="code" 
+                maxlength="6"
+                oninput="this.value = this.value.replace(/[^0-9]/g,'')"
+                placeholder="******">
+            <br>
+            <button onclick="checkCode()">YOXLA</button>
+        `;
+    }
+
+    function checkCode() {
+        let code = document.getElementById("code").value;
+        if (code === "111111") {
+            document.getElementById("app").innerHTML = `
+                <h1>SƏN ELŞƏNSƏN</h1>
+                <div class="blue">Netflix doğda ay biləəəəəəə</div>
+            `;
+        } else {
+            document.getElementById("app").innerHTML = `
+                <h1>RƏDD OL, GET</h1>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
